@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlasticBionic | Final Project</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ::-webkit-scrollbar{
+            display: none;
+        } */
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "lausanne";
+        }
+        html,body{
+            height: 100%;
+            width: 100%;
+        }
+        #firstScreen{
+            position: absolute;
+            height: 100vh;
+            width: 100vw;
+            background-color: rgb(0, 0, 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99;
+            /* display: none; */
+        }
+        #firstScreen nav{
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 10vh;
+            width: 100vw;
+            border-bottom: 1px solid #636363;
+            display: flex;
+        }
+        #firstScreen h1{
+            position: relative;
+            z-index: 9;
+            font-size: 10vw;
+            color: #fff;
+            font-weight: 500;
+            overflow: hidden;
+        }
+        #firstScreen h1 span{
+            display: inline-block;
+        }
+        #firstScreen #box{
+            position: absolute;
+            height: 50vh;
+            width: 20vw;
+            /* background-color: red; */
+        }
+        #firstScreen #box img{
+            position: absolute;
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+            opacity: 0;
+        }
+        /* #mainKaBaap{
+            display: none;
+        } */
+        nav{
+            position: fixed;
+            z-index: 2;
+            height: 10vh;
+            width: 100vw;
+            border-bottom: 1px solid #636363;
+            display: flex;
+            /* background-color: yellow; */
+        }
+        nav .options{
+            height: 100%;
+            width: calc(100%/3);
+            /* border-right: 1px solid #636363; */
+            display: flex;
+            align-items: center;
+            padding-left: 3vw;
+            color: #fff;
+            font-size: .9vw;
+            position: relative;
+        }
+        nav .options .navCover{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            display: flex;
+            align-items: center;
+            padding-left: 3vw;
+            color: #fff;
+            font-size: .9vw;
+            font-weight: 500;
+            backdrop-filter: blur(5px);
+            background-color: rgba(64, 63, 63, 0.507);
+        }
+        nav .options #navCover1{
+            background-color: #fff;
+            height: 3px;
+            color: #000;
+        }
+        nav .options .navCover span{
+            opacity: 0;
+            pointer-events: none;
+        }
+        #nav2{
+            top: 10vh;
+            border-bottom: none;
+            pointer-events: none;
+        }
+        #nav2 .options{
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 0 5vw;
+            /* background-color: rgb(0, 0, 0); */
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #nav2 #options3{
+            display: flex;
+            gap: 1vw;
+            opacity: 1;
+            pointer-events: initial;
+        }
+        #nav2 .options .nav2links{
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            height: 100%;
+            width: calc(100%/3);
+            /* padding: 1vw; */
+            /* background-color: grey; */
+        }
+        #nav2 .options .nav2links a{
+            position: relative;
+            text-decoration: none;
+            color: #fff;
+        }
+        #nav2 .options .nav2links a::after{
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 1px;
+            width: 100%;
+            background-color: #fff;
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform .3s ease-out;
+        }
+        #nav2 .options .nav2links a:hover::after{
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+        .section{
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            background-color: #000;
+        }
+        .section img{
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+        .section .text{
+            min-width: 0vw;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            /* background-color: red; */
+            text-align: center;
+        }
+        .section .text .centerTxt{
+            width: fit-content;
+            /* background-color: red; */
+            overflow: hidden;
+        }
+        .section .text .centerTxt h1{
+            color: #fff;
+            font-size: 9.5vw;
+            font-weight: 400;
+            user-select: none;
+            padding: 0 1vw;
+            white-space: nowrap;
+        }
+        .section .text .centerTxt h1 span{
+            display: inline-block;
+        }
+        .section .text .centerTxt .line{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 1vw;
+            width: 0%;
+            background-color: #fff;
+        }
+        .section .text h5{
+            pointer-events: none;
+            position: absolute;
+            bottom: -6vh;
+            left: 50%;
+            translate: -50%;
+            color: #fff;
+            opacity: 0;
+            font-family: poppins;
+            font-weight: 300;
+            text-transform: uppercase;
+            font-size: .8vw;
+            z-index: 9;
+        }
+
+
+        @media (max-width: 500px){
+            #firstScreen h1{
+                font-size: 15vw;
+                color: rgb(255, 255, 255);
+            }
+            #firstScreen #box{
+                position: absolute;
+                height: 50vh;
+                width: 50vw;
+                /* background-color: red; */
+            }
+            nav .options{
+                justify-content: center;
+                padding-left: 0vw;
+                font-size: 2.5vw;
+                /* background-color: red; */
+            }
+            nav .options .navCover{
+                justify-content: center;
+                padding-left: 0vw;
+                font-size: 2.5vw;
+            }
+            #nav2 #options3{
+                width: 50%;
+            }
+            .section .text .centerTxt h1{
+                font-size: 12vw;
+            }
+            .section .text h5{
+                bottom: -3vh;
+                font-size: 1.2vw;
+            }
+            
+        }
+    </style>
+</head>
+
+<body>
+    <div id="firstScreen">
+        <nav></nav>
+        <h1>Plasticbionic</h1>
+        <div id="box">
+            <img id="img1" src="https://plasticbionic.com/loader_1@2.png" alt="">
+            <img id="img2" src="https://plasticbionic.com/loader_2@2.png" alt="">
+            <img id="img3" src="https://plasticbionic.com/loader_3@2.png" alt="">
+            <img src="https://dev.plasticbionic.com/wp-content/uploads/GOOGLE_Wallpaper_Illustration_H.jpg" alt="" id="img4">
+        </div>
+    </div>
+    <div id="mainKaBaap">
+        <nav id="navMain">
+            <div class="options" id="option1">
+                Change view
+                <div class="navCover" id="navCover1"><span>Fullscreen</span></div>
+            </div>
+            <div class="options">
+                <div class="navCover"><span>Grid</span></div>
+            </div>
+            <div class="options">
+                <div class="navCover"><span>List</span></div>
+            </div>
+        </nav>
+        <nav id="nav2">
+            <div class="options"></div>
+            <div class="options"></div>
+            <div class="options" id="options3">
+                <div class="nav2links">
+                    <a href="#">Work</a>
+                </div>
+                <div class="nav2links">
+                    <a href="#">Studio</a>
+                </div>
+                <div class="nav2links">
+                    <a href="#">Instagram</a>
+                </div>
+            </div>
+        </nav>
+        <div id="main">
+            <div class="section">
+                <img src="https://dev.plasticbionic.com/wp-content/uploads/GOOGLE_Wallpaper_Illustration_H.jpg" alt="">
+                <div class="text">
+                    <div class="centerTxt">
+                        <h1 id="google">Google</h1>
+                        <div class="line"></div>
+                    </div>
+                    <h5>Art direction, cgi, illustration</h5>
+                </div>
+            </div>
+            <div class="section">
+                <img src="https://dev.plasticbionic.com/wp-content/uploads/ANTINOMY_Illustration_ArtDirection4_H.jpg"
+                    alt="">
+                <div class="text">
+                    <div class="centerTxt">
+                        <h1>Antinomy</h1>
+                        <div class="line"></div>
+                    </div>
+                    <h5>Art direction, cgi, illustration</h5>
+                </div>
+            </div>
+            <div class="section">
+                <img src="https://dev.plasticbionic.com/wp-content/uploads/36DAYSOFTYPE_Typography_Illustration_2021_H.jpg"
+                    alt="">
+                <div class="text">
+                    <div class="centerTxt">
+                        <h1>36 days of type</h1>
+                        <div class="line"></div>
+                    </div>
+                    <h5>Art direction, cgi, illustration</h5>
+                </div>
+            </div>
+            <div class="section">
+                <img src="https://dev.plasticbionic.com/wp-content/uploads/ECHONOVA_Illustration_ArtDirection_H4-1.jpg"
+                    alt="">
+                <div class="text">
+                    <div class="centerTxt">
+                        <h1>L'Echonova</h1>
+                        <div class="line"></div>
+                    </div>
+                    <h5>Art direction, cgi, illustration</h5>
+                </div>
+            </div>
+            <div class="section">
+                <img src="https://dev.plasticbionic.com/wp-content/uploads/HUBLOT_Corporate_Illustration_1_H.jpg"
+                    alt="">
+                <div class="text">
+                    <div class="centerTxt">
+                        <h1>Hublot</h1>
+                        <div class="line"></div>
+                    </div>
+                    <h5>Art direction, cgi, illustration</h5>
+                </div>
+            </div>
+            <div class="section">
+                <img src="https://dev.plasticbionic.com/wp-content/uploads/BUYtv_Identity_Illustration_H_N-1.jpg"
+                    alt="">
+                <div class="text">
+                    <div class="centerTxt">
+                        <h1>Byu Tv</h1>
+                        <div class="line"></div>
+                    </div>
+                    <h5>Art direction, cgi, illustration</h5>
+                </div>
+            </div>
+            <div class="section">
+                <img src="https://dev.plasticbionic.com/wp-content/uploads/NUAGESURMER_Illustration_1A.jpg" alt="">
+                <div class="text">
+                    <div class="centerTxt">
+                        <h1>Nuager-sur-Mer</h1>
+                        <div class="line"></div>
+                    </div>
+                    <h5>Art direction, cgi, illustration</h5>
+                </div>
+            </div>
+            <div class="section">
+                <img src="https://dev.plasticbionic.com/wp-content/uploads/FastCompany_Magazine_Illustration_1.jpg"
+                    alt="">
+                <div class="text">
+                    <div class="centerTxt">
+                        <h1>Fast Company</h1>
+                        <div class="line"></div>
+                    </div>
+                    <h5>Art direction, cgi, illustration</h5>
+                </div>
+            </div>
+            <div class="section">
+                <img src="https://dev.plasticbionic.com/wp-content/uploads/C3P_GraphicDesign_Illustration_1.jpg" alt="">
+                <div class="text">
+                    <div class="centerTxt">
+                        <h1>Tous ā table</h1>
+                        <div class="line"></div>
+                    </div>
+                    <h5>Art direction, cgi, illustration</h5>
+                </div>
+            </div>
+            <div class="section">
+                <img src="https://dev.plasticbionic.com/wp-content/uploads/Bic1_Home2.jpg" alt="">
+                <div class="text">
+                    <div class="centerTxt">
+                        <h1>Bic</h1>
+                        <div class="line"></div>
+                    </div>
+                    <h5>Art direction, cgi, illustration</h5>
+                </div>
+            </div>
+            <div class="section">
+                <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+                    alt="">
+                <div class="text">
+                    <div class="centerTxt">
+                        <h1>View all <br>projects</h1>
+                        <div class="line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/ScrollTrigger.min.js"
+        integrity="sha512-tHvUcUQYi35zApvAa5TNR3fNhBQkVtkmWKfacnpxmix4/VTGz1lGjIVyLMp7gLgAvg+aKJjnVKokXJNS5GZ+/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.2/gsap.min.js"
+        integrity="sha512-gsEItzcNkWxfxHjr4BaEZAd9YuRWYjxnj7c/yukcZ0/nWehUb5TjJNyyv1ApCU2DFH/qgw+stFZHPOKnoQnIuQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="script.js"></script>
+    <script>
+        // *********** LOCOMOTIVE SECTION *************
+        loco = ()=>{
+            gsap.registerPlugin(ScrollTrigger);
+
+        const locoScroll = new LocomotiveScroll({
+        el: document.querySelector("#main"),
+        smooth: true,
+
+        // for tablet smooth
+        tablet: { smooth: true },
+
+        // for mobile
+        smartphone: { smooth: true }
+        });
+        locoScroll.on("scroll", ScrollTrigger.update);
+
+        ScrollTrigger.scrollerProxy("#main", {
+        scrollTop(value) {
+            return arguments.length
+            ? locoScroll.scrollTo(value, 0, 0)
+            : locoScroll.scroll.instance.scroll.y;
+        },
+        getBoundingClientRect() {
+            return {
+            top: 0,
+            left: 0,
+            width: window.innerWidth,
+            height: window.innerHeight
+            };
+        }
+
+        });
+
+        ScrollTrigger.addEventListener("refresh", () => locoScroll.update());
+
+        ScrollTrigger.refresh();
+        }
+
+        // *************** GSAP SECTION ****************
+
+        // *************** Responsive Section ***************
+        // console.log(window.innerWidth)
+        var ctrh, ctrw;
+
+        if (window.innerWidth <= 500) {
+        ctrh = .7;
+        ctrw = 2.5;
+        }
+        else {
+        ctrh = 1;
+        ctrw = 1;
+        }
+
+
+        // *************** FirstScreen Animation ***************
+        firstscreen = ()=>{
+            textAnimation();
+            gsap.from("#firstScreen nav",{
+                x: "-100%",
+                duration: 4,
+                ease: Circ.easeInOut
+            })
+            gsap.to("#box img",{
+                opacity: 1,
+                duration: 2,
+                stagger: 1,
+                ease: Expo.easeInOut
+            })
+            liftUp = ()=>{
+                gsap.to("h1 span",{
+                    opacity: 0,
+                    y: "-150%",
+                    ease: Expo.easeInOut,
+                    duration: 1
+                })
+            }
+            var tl = gsap.timeline();
+            tl
+            .from("#box",{
+                opacity: 0,
+                height: "0vh",
+                width: "0vw",
+                duration: 2,
+                ease: Expo.easeInOut,
+                stagger: .1,
+            })
+            .to("#box",{
+                height: `${45 * ctrh}vh`,
+                width: `${37.5 * ctrw}vw`,
+                duration: 1,
+                ease: Expo.easeInOut,
+                stagger: 1,
+            })
+            .to("#box",{
+                height: `${50 * ctrh}vh`,
+                width: `${20 * ctrw}vw`,
+                duration: 1,
+                ease: Expo.easeInOut,
+                stagger: 1,
+                onComplete: ()=>{
+                    liftUp();
+                }
+            })
+            .to("#box",{
+                height: "100vh",
+                width: "100vw",
+                duration: 1,
+                ease: Circ.easeInOut,
+                stagger: .5,
+                onComplete: ()=>{
+                    document.querySelector("#firstScreen").style.display = "none";
+                    navLineAnimation();
+                }
+            })
+        }
+
+        // *************** firstscreen text animation ***************
+        textAnimation = ()=>{
+            let cluster = "";
+            let h1 =  document.querySelector("#firstScreen h1");
+            let j = 0;
+            for(let i=0; i <= Math.floor(h1.textContent.length/2); i++){
+                cluster += `<span data-delay="${i}">${h1.textContent.charAt(j) === " "? "&nbsp;" : h1.textContent.charAt(j)}</span>`
+                j++;
+            }
+            for(let i = Math.floor(h1.textContent.length/2)-1; i >= 0; i--){
+                cluster += `<span data-delay="${i}">${h1.textContent.charAt(j) === " "? "&nbsp;" : h1.textContent.charAt(j)}</span>`
+                j++;
+            }
+            h1.innerHTML = cluster
+            document.querySelectorAll("h1 span")
+            .forEach((elem)=>{
+                gsap.from(elem,{
+                    y: "100%",
+                    duration: 2,
+                    delay: elem.dataset.delay*.1,
+                    ease: Expo.easeInOut
+                })
+            })
+        }
+
+        // *************** Nav Coverinng Animation ****************
+
+        navLineAnimation = ()=>{
+            gsap.from("#navCover1",{
+                x: "-100%",
+                duration: 2,
+                ease: Expo.easeInOut
+            })
+            harh1Animation();
+        }
+        navHoverAnimation= ()=>{
+            let nav = document.querySelector("#navMain");
+            nav.addEventListener('mouseenter',()=>{
+                gsap.to('.navCover',{
+                    height: "100%",
+                    duration: .5,
+                    ease: Expo.easeOut
+                })
+                gsap.to(".navCover>span",{
+                    opacity: 1,
+                    duration: .1
+                })
+            })
+            nav.addEventListener('mouseleave',()=>{
+                gsap.to('.navCover',{
+                    height: "0",
+                    duration: .5,
+                    ease: Expo.easeOut
+                })
+                gsap.to('#navCover1',{
+                    height: "3px",
+                    duration: .5,
+                    ease: Expo.easeOut
+                })
+                gsap.to(".navCover>span",{
+                    opacity: 0,
+                    duration: .1
+                })
+            })
+        }
+
+        underline_Popup = ()=>{
+            let section = document.querySelectorAll(".section");
+            section.forEach(function(elem){
+                // *************** h1 down movement animation ****************
+                gsap.from(elem.children[1],{
+                    y: -400,
+                    opacity: 0,
+                    duration: 1,
+                    scrollTrigger: {
+                        trigger: elem.children[1],
+                        scroller : "#main",
+                        starts: "top 50%",
+                        // markers: true,
+                        scrub: true
+                    }
+                })
+                // *************** underline animation ****************
+                elem.children[1].children[0].addEventListener("mouseenter",(dets)=>{
+                    gsap.to(dets.target.children[1],{
+                        width:"100%",
+                        ease: Expo.easeInOut,
+                        duration: .5
+                    })
+                    gsap.to(elem.children[1].children[1],{
+                        opacity: .7
+                    })
+                })
+                elem.children[1].children[0].addEventListener("mouseleave",(dets)=>{
+                    gsap.to(dets.target.children[1],{
+                        width:"0%",
+                        left: "100%",
+                        ease: Expo.easeInOut,
+                        duration: .5,
+                        onComplete: ()=>{
+                            dets.target.children[1].style.left = "0";
+                        }
+                    })
+                    gsap.to(elem.children[1].children[1],{
+                        opacity: 0
+                    })
+                })
+            })
+        }
+
+        harh1Animation = ()=>{
+            let cluster = "";
+            let harh1 =  document.querySelectorAll(".text h1");
+            let j = 0;
+            harh1.forEach((char)=>{
+                for(let i=0; i <= Math.floor(char.textContent.length/2); i++){
+                    cluster += `<span data-delay="${i}">${char.textContent.charAt(j) === " "? "&nbsp;" : char.textContent.charAt(j)}</span>`
+                    j++;
+                }
+                for(let i = Math.floor(char.textContent.length/2)-1; i >= 0; i--){
+                    cluster += `<span data-delay="${i}">${char.textContent.charAt(j) === " "? "&nbsp;" : char.textContent.charAt(j)}</span>`
+                    j++;
+                }
+                char.innerHTML = cluster
+                cluster = "";
+                j = 0;
+            })
+            
+            harh1.forEach((elem)=>{
+                elem.querySelectorAll("span")
+                .forEach((span)=>{
+                    gsap.from(span,{
+                        scrollTrigger: {
+                            scroller: "#main",
+                            trigger: elem,
+                            start: "top 80%"
+                        },
+                        y: "100%",
+                        duration: 1,
+                        delay: span.dataset.delay*.1,
+                        ease: Expo.easeInOut
+                    })
+                })
+            })
+        }
+
+        // *************** functions Initialisation ***************
+        loco();
+        firstscreen();
+        navHoverAnimation();
+        underline_Popup();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Animation</title>
+    <style>
+        html,body{
+            height: 100%;
+            width: 100%;
+            background-color: rgb(149, 222, 149);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #card{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 7vw;
+            /* width: 100%; */
+            /* background-color: red; */
+            overflow: hidden;
+            font-family: poppins;
+            gap: 1vw;
+            position: relative;
+        }
+        #card h1{
+            font-family: "lausanne";
+            font-size: 6vw;
+        }
+        #card #line{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 1vw;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.665);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform .4s ease-out;
+        }
+        #card:hover > #line{
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        #card h1 span{
+            display: inline-block;
+            /* transform: translateY(105%); */
+        }
+    </style>
+</head>
+<body>
+    <div id="card">
+        <h1>Shadab Mahtabi</h1>
+        <div id="line"></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.2/gsap.min.js" integrity="sha512-gsEItzcNkWxfxHjr4BaEZAd9YuRWYjxnj7c/yukcZ0/nWehUb5TjJNyyv1ApCU2DFH/qgw+stFZHPOKnoQnIuQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        let cluster = "";
+        let h1 =  document.querySelector("h1");
+        let j = 0;
+
+        for(let i=0; i <= Math.floor(h1.textContent.length/2); i++){
+            cluster += `<span data-delay="${i}">${h1.textContent.charAt(j)}</span>`
+            j++;
+        }
+        for(let i = Math.floor(h1.textContent.length/2)-1; i >= 0; i--){
+            cluster += `<span data-delay="${i}">${h1.textContent.charAt(j)}</span>`
+            j++;
+        }
+        h1.innerHTML = cluster
+        
+        document.querySelectorAll("h1 span")
+        .forEach((elem)=>{
+            gsap.from(elem,{
+                y: "100%",
+                duration: 2,
+                delay: elem.dataset.delay*.1,
+                ease: Expo.easeInOut
+            })
+        })
+        
+    </script>
+</body>
+</html>
